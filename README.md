@@ -9,6 +9,7 @@ The following packages are expected to be installed _for now_
 - curl
 - [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 - [chezmoi](https://www.chezmoi.io/docs/install/)
+- [Hack Nerd Font](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Hack)
 
 ## First Time Setup
 
