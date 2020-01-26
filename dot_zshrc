@@ -111,3 +111,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Enable bash autocompletions and load from default location
 autoload -U +X bashcompinit && bashcompinit
+
+# Load local config, if present
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
