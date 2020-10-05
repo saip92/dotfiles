@@ -125,3 +125,6 @@ autoload -U +X bashcompinit && bashcompinit
 
 # Overrides
 unsetopt share_history
+
+# Exports
+export GPG_TTY=$(tty)
