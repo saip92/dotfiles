@@ -13,8 +13,8 @@ fi
 export ZINIT_HOME=$HOME/.zinit
 
 # Zinit Module
-module_path+=( "$ZINIT_HOME/bin/zmodules/Src" )
-zmodload zdharma/zplugin
+# module_path+=( "$ZINIT_HOME/bin/zmodules/Src" )
+# zmodload zdharma-continuum/zplugin
 
 # Skips the global compinit
 skip_global_compinit=1
@@ -22,7 +22,7 @@ skip_global_compinit=1
 # Install if not present
 if [[ ! -d $ZINIT_HOME ]];then
   mkdir $ZINIT_HOME
-  git clone https://github.com/zdharma/zinit.git $ZINIT_HOME/bin
+  git clone https://github.com/zdharma-continuum/zinit.git $ZINIT_HOME/bin
 fi
 
 # Initialize
@@ -57,8 +57,8 @@ zpt 0b '{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'; zp zsh-use
 # zp zsh-users/zsh-syntax-highlighting
 zp zsh-users/zsh-history-substring-search
 
-# Zdharma
-zpt 0b atload'zpcdreplay'; zp zdharma/fast-syntax-highlighting
+# zdharma-continuum
+zpt 0b atload'zpcdreplay'; zp zdharma-continuum/fast-syntax-highlighting
 
 # Yarn Auto Completions
 zpt 0 atload"zpcdreplay" atclone"./zplug.zsh"; zp g-plane/zsh-yarn-autocompletions
