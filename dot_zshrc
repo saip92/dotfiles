@@ -10,7 +10,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Zinit Home
-export ZINIT_HOME=$HOME/.zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
 # Zinit Module
 # module_path+=( "$ZINIT_HOME/bin/zmodules/Src" )
@@ -18,17 +21,6 @@ export ZINIT_HOME=$HOME/.zinit
 
 # Skips the global compinit
 skip_global_compinit=1
-
-# Install if not present
-if [[ ! -d $ZINIT_HOME ]];then
-  mkdir $ZINIT_HOME
-  git clone https://github.com/zdharma-continuum/zinit.git $ZINIT_HOME/bin
-fi
-
-# Initialize
-source $ZINIT_HOME/bin/zinit.zsh
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Uncomment to check loading times
 # zpmod source-study
@@ -38,40 +30,55 @@ zpt() { zinit ice wait"${1}" lucid             "${@:2}"; } # Turbo
 zpi() { zinit ice lucid                          "${@}"; } # Regular Ice
 zp()  { [ -z $2 ] && zinit light "${@}" || zinit "${@}"; } # zinit
 
-# Oh My Zsh
+# Oh My Zsh - /lib/
 zpt 0a; zp snippet OMZL::clipboard.zsh
 zpt 0a; zp snippet OMZL::completion.zsh
 zpt 0a; zp snippet OMZL::correction.zsh
+zpt 0a; zp snippet OMZL::functions.zsh
 zpt 0a; zp snippet OMZL::git.zsh
 zpt 0a; zp snippet OMZL::history.zsh
 zpt 0a; zp snippet OMZL::key-bindings.zsh
 zpt 0a; zp snippet OMZL::termsupport.zsh
+
+# Oh My Zsh - /plugins/
+zpt 0a; zp snippet OMZP::command-not-found/command-not-found.plugin.zsh
+zpt 0a; zp snippet OMZP::docker/docker.plugin.zsh
+zpt 0a; zp snippet OMZP::docker-compose/docker-compose.plugin.zsh
+zpt 0a; zp snippet OMZP::eza/eza.plugin.zsh
 zpt 0a; zp snippet OMZP::git/git.plugin.zsh
 zpt 0a; zp snippet OMZP::kubectl/kubectl.plugin.zsh
 zpt 0a; zp snippet OMZP::sudo/sudo.plugin.zsh
-zpt 0a; zp snippet OMZP::command-not-found/command-not-found.plugin.zsh
 
 # Zsh Users
-zpt 0a blockf atpull'zinit creinstall -q .'; zp zsh-users/zsh-completions
 zpt 0b '{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'; zp zsh-users/zsh-autosuggestions
 # zp zsh-users/zsh-syntax-highlighting
 zp zsh-users/zsh-history-substring-search
 
 # zdharma-continuum
-zpt 0b atload'zpcdreplay'; zp zdharma-continuum/fast-syntax-highlighting
+zpt 0b; zp zdharma-continuum/fast-syntax-highlighting
 
 # Yarn Auto Completions
-zpt 0 atload"zpcdreplay" atclone"./zplug.zsh"; zp g-plane/zsh-yarn-autocompletions
+zpt 0 atclone"./zplug.zsh"; zp g-plane/zsh-yarn-autocompletions
 
 # Powerlevel10k
 zpi depth"1"; zp romkatv/powerlevel10k
+
+# ***********
+# * Plugins *
+# ***********
+
+# kubectx / kubens
+zpi depth"1"; zp unixorn/kubectx-zshplugin
+
+# n
+zpi depth"1"; zp gretzky/n.zsh
 
 # ************
 # * Binaries *
 # ************
 
 # enhancd
-zpt 0 atclone"./init.sh"; zp b4b4r07/enhancd
+zpt 0 atclone"source ./init.sh"; zp babarot/enhancd
 
 # fzf
 zpt 0 from"gh-r" as"command"; zp junegunn/fzf-bin
@@ -81,21 +88,19 @@ zp Aloxaf/fzf-tab
 # zplug "jhawthorn/fzy", as:command, rename-to:fzy, hook-build:"make && PREFIX=$HOME/.local make install"
 
 # jq
-zpt 0 from"gh-r" as"command" mv"jq-* -> jq"; zp stedolan/jq
+zpt 0 from"gh-r" as"command" mv"jq-* -> jq"; zp jqlang/jq
 
 # kubebox
 zpt 0 from"gh-r" as"command" mv"kubebox-* -> kubebox"; zp astefanutti/kubebox
 
-# kubectx / kubens
-# zplug "ahmetb/kubectx", use:{kubectx,kubens}, as:command
-# zplug "ahmetb/kubectx", use:completion/kubectx.zsh, defer:3
-# zplug "ahmetb/kubectx", use:completion/kubens.zsh, defer:3
-# alias kctx="kubectx"
-# alias kns="kubens"
-
 # ripgrep
 # zplug "BurntSushi/ripgrep", from:gh-r, as:command, rename-to:rg
 # zplug "plugins/ripgrrep", from:oh-my-zsh
+
+# *********************
+# * Setup Completions *
+# *********************
+zpt 0a atload"zicompinit; zicdreplay" blockf atpull'zinit creinstall -q .'; zp zsh-users/zsh-completions
 
 # ******************
 # * Plugin Configs *
