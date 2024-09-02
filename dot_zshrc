@@ -61,6 +61,9 @@ zpt 0 from"gh-r" as"command" mv"kubebox-* -> kubebox"; zp astefanutti/kubebox
 # zplug "BurntSushi/ripgrep", from:gh-r, as:command, rename-to:rg
 # zplug "plugins/ripgrrep", from:oh-my-zsh
 
+# task
+zpt 0 from"gh-r" as"command"; zp go-task/task
+
 # ************
 # * Funtions *
 # ************
