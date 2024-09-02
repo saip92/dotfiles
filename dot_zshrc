@@ -34,6 +34,37 @@ zpt() { zinit ice wait"${1}" lucid             "${@:2}"; } # Turbo
 zpi() { zinit ice lucid                          "${@}"; } # Regular Ice
 zp()  { [ -z $2 ] && zinit light "${@}" || zinit "${@}"; } # zinit
 
+# ************
+# * Binaries *
+# ************
+
+# enhancd
+zpt 0 atclone"source ./init.sh"; zp babarot/enhancd
+
+# eza
+zpt 0 from"gh-r" as"command"; zp eza-community/eza
+
+# fzf
+zpt 0 from"gh-r" as"command"; zp junegunn/fzf-bin
+zp Aloxaf/fzf-tab
+
+# fzy
+# zplug "jhawthorn/fzy", as:command, rename-to:fzy, hook-build:"make && PREFIX=$HOME/.local make install"
+
+# jq
+zpt 0 from"gh-r" as"command" mv"jq-* -> jq"; zp jqlang/jq
+
+# kubebox
+zpt 0 from"gh-r" as"command" mv"kubebox-* -> kubebox"; zp astefanutti/kubebox
+
+# ripgrep
+# zplug "BurntSushi/ripgrep", from:gh-r, as:command, rename-to:rg
+# zplug "plugins/ripgrrep", from:oh-my-zsh
+
+# ************
+# * Funtions *
+# ************
+
 # Oh My Zsh - /lib/
 zpt 0a; zp snippet OMZL::clipboard.zsh
 zpt 0a; zp snippet OMZL::completion.zsh
@@ -43,6 +74,10 @@ zpt 0a; zp snippet OMZL::git.zsh
 zpt 0a; zp snippet OMZL::history.zsh
 zpt 0a; zp snippet OMZL::key-bindings.zsh
 zpt 0a; zp snippet OMZL::termsupport.zsh
+
+# ***********
+# * Plugins *
+# ***********
 
 # Oh My Zsh - /plugins/
 zpt 0a; zp snippet OMZP::command-not-found/command-not-found.plugin.zsh
@@ -67,39 +102,11 @@ zpt 0 atclone"./zplug.zsh"; zp g-plane/zsh-yarn-autocompletions
 # Powerlevel10k
 zpi depth"1"; zp romkatv/powerlevel10k
 
-# ***********
-# * Plugins *
-# ***********
-
 # kubectx / kubens
 zpi depth"1"; zp unixorn/kubectx-zshplugin
 
 # n
 zpi depth"1"; zp gretzky/n.zsh
-
-# ************
-# * Binaries *
-# ************
-
-# enhancd
-zpt 0 atclone"source ./init.sh"; zp babarot/enhancd
-
-# fzf
-zpt 0 from"gh-r" as"command"; zp junegunn/fzf-bin
-zp Aloxaf/fzf-tab
-
-# fzy
-# zplug "jhawthorn/fzy", as:command, rename-to:fzy, hook-build:"make && PREFIX=$HOME/.local make install"
-
-# jq
-zpt 0 from"gh-r" as"command" mv"jq-* -> jq"; zp jqlang/jq
-
-# kubebox
-zpt 0 from"gh-r" as"command" mv"kubebox-* -> kubebox"; zp astefanutti/kubebox
-
-# ripgrep
-# zplug "BurntSushi/ripgrep", from:gh-r, as:command, rename-to:rg
-# zplug "plugins/ripgrrep", from:oh-my-zsh
 
 # *********************
 # * Setup Completions *
