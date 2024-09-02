@@ -80,6 +80,7 @@ zpt 0a; zp snippet OMZL::termsupport.zsh
 # ***********
 
 # Oh My Zsh - /plugins/
+zpt 0a; zp snippet OMZP::brew/brew.plugin.zsh
 zpt 0a; zp snippet OMZP::command-not-found/command-not-found.plugin.zsh
 zpt 0a; zp snippet OMZP::docker/docker.plugin.zsh
 zpt 0a; zp snippet OMZP::docker-compose/docker-compose.plugin.zsh
@@ -144,3 +145,10 @@ unsetopt share_history
 
 # Exports
 export GPG_TTY=$(tty)
+
+# *********************
+# * Setup Other Tools *
+# *********************
+
+# Setup `n` if installed via `n-install`
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
