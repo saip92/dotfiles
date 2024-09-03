@@ -116,6 +116,8 @@ zpi depth"1"; zp gretzky/n.zsh
 # * Setup Completions *
 # *********************
 zpt 0a atload"zicompinit; zicdreplay" blockf atpull'zinit creinstall -q .'; zp zsh-users/zsh-completions
+autoload -Uz compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
 
 # ******************
 # * Plugin Configs *
@@ -136,9 +138,6 @@ done
 # ***************
 # * User Config *
 # ***************
-
-# Enable bash autocompletions and load from default location
-autoload -U +X bashcompinit && bashcompinit
 
 # Load local config, if present
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
