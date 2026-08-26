@@ -79,7 +79,7 @@ zpt 0a; zp snippet OMZL::completion.zsh
 zpt 0a; zp snippet OMZL::correction.zsh
 zpt 0a; zp snippet OMZL::functions.zsh
 zpt 0a; zp snippet OMZL::git.zsh
-zpt 0a; zp snippet OMZL::history.zsh
+zpi; zp snippet OMZL::history.zsh
 zpt 0a; zp snippet OMZL::key-bindings.zsh
 zpt 0a; zp snippet OMZL::termsupport.zsh
 
@@ -98,9 +98,7 @@ zpt 0a; zp snippet OMZP::kubectl/kubectl.plugin.zsh
 zpt 0a; zp snippet OMZP::sudo/sudo.plugin.zsh
 
 # Zsh Users
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zpi '{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'; zp zsh-users/zsh-autosuggestions
-unset ZSH_AUTOSUGGEST_USE_ASYNC
 # zp zsh-users/zsh-syntax-highlighting
 zp zsh-users/zsh-history-substring-search
 
@@ -154,8 +152,6 @@ alias cdi='ji'
 
 # Load local config, if present
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-_zsh_autosuggest_start
 
 # Overrides
 unsetopt share_history
