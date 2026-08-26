@@ -48,13 +48,13 @@ zpt 0 from"gh-r" as"command"; zp BurntSushi/ripgrep
 zpt 0 from"gh-r" as"command"; zp sharkdp/fd
 
 # zoxide
-zpt 0 from"gh-r" as"command" atload'eval "$(zoxide init zsh --cmd j)"'; zp ajeetdsouza/zoxide
+zpi from"gh-r" as"command" atload'eval "$(zoxide init zsh --cmd j)"'; zp ajeetdsouza/zoxide
 
 # bat
 zpt 0 from"gh-r" as"command"; zp sharkdp/bat
 
 # fzf
-zpt 0 from"gh-r" as"command"; zp junegunn/fzf
+zpi from"gh-r" as"command"; zp junegunn/fzf
 zp Aloxaf/fzf-tab
 
 # fzy
@@ -98,12 +98,14 @@ zpt 0a; zp snippet OMZP::kubectl/kubectl.plugin.zsh
 zpt 0a; zp snippet OMZP::sudo/sudo.plugin.zsh
 
 # Zsh Users
-zpt 0b '{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'; zp zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+zpi '{src/*.zsh,src/strategies/*}' atload'_zsh_autosuggest_start'; zp zsh-users/zsh-autosuggestions
+unset ZSH_AUTOSUGGEST_USE_ASYNC
 # zp zsh-users/zsh-syntax-highlighting
 zp zsh-users/zsh-history-substring-search
 
 # zdharma-continuum
-zpt 0b; zp zdharma-continuum/fast-syntax-highlighting
+zpi; zp zdharma-continuum/fast-syntax-highlighting
 
 # Yarn Auto Completions
 zpt 0 atclone"./zplug.zsh"; zp g-plane/zsh-yarn-autocompletions
@@ -120,15 +122,14 @@ zpi depth"1"; zp gretzky/n.zsh
 # *********************
 # * Setup Completions *
 # *********************
-zpt 0a atload"zicompinit; zicdreplay" blockf atpull'zinit creinstall -q .'; zp zsh-users/zsh-completions
-autoload -Uz compinit && compinit
+zpi atload"zicompinit; zicdreplay" blockf atpull'zinit creinstall -q .'; zp zsh-users/zsh-completions
 autoload -U +X bashcompinit && bashcompinit
 
 # ******************
 # * Plugin Configs *
 # ******************
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -154,11 +155,13 @@ alias cdi='ji'
 # Load local config, if present
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
+_zsh_autosuggest_start
+
 # Overrides
 unsetopt share_history
 
 # Exports
-export GPG_TTY=$(tty)
+[[ -t 1 ]] && export GPG_TTY=$(tty)
 
 # *********************
 # * Setup Other Tools *
