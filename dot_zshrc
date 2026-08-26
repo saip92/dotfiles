@@ -38,14 +38,23 @@ zp()  { [ -z $2 ] && zinit light "${@}" || zinit "${@}"; } # zinit
 # * Binaries *
 # ************
 
-# enhancd
-zpt 0 atclone"source ./init.sh"; zp babarot/enhancd
-
 # eza
 zpt 0 from"gh-r" as"command"; zp eza-community/eza
 
+# ripgrep
+zpt 0 from"gh-r" as"command"; zp BurntSushi/ripgrep
+
+# fd
+zpt 0 from"gh-r" as"command"; zp sharkdp/fd
+
+# zoxide
+zpt 0 from"gh-r" as"command" atload'eval "$(zoxide init zsh --cmd j)"'; zp ajeetdsouza/zoxide
+
+# bat
+zpt 0 from"gh-r" as"command"; zp sharkdp/bat
+
 # fzf
-zpt 0 from"gh-r" as"command"; zp junegunn/fzf-bin
+zpt 0 from"gh-r" as"command"; zp junegunn/fzf
 zp Aloxaf/fzf-tab
 
 # fzy
@@ -56,10 +65,6 @@ zpt 0 from"gh-r" as"command" mv"jq-* -> jq"; zp jqlang/jq
 
 # kubebox
 zpt 0 from"gh-r" as"command" mv"kubebox-* -> kubebox"; zp astefanutti/kubebox
-
-# ripgrep
-# zplug "BurntSushi/ripgrep", from:gh-r, as:command, rename-to:rg
-# zplug "plugins/ripgrrep", from:oh-my-zsh
 
 # task
 zpt 0 from"gh-r" as"command"; zp go-task/task
@@ -138,6 +143,13 @@ done
 # ***************
 # * User Config *
 # ***************
+
+# Command aliases
+alias cat='bat'
+alias find='fd'
+alias grep='rg'
+alias cd='j'
+alias cdi='ji'
 
 # Load local config, if present
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
